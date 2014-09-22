@@ -17,7 +17,7 @@ package org.terasology.monitoring.chunk;
 
 import com.google.common.base.Preconditions;
 import org.terasology.math.Vector3i;
-import org.terasology.rendering.primitives.ChunkMesh;
+import org.terasology.rendering.primitives.PackedVertexData;
 import org.terasology.world.chunks.ChunkProvider;
 
 public abstract class ChunkMonitorEvent {
@@ -96,11 +96,11 @@ public abstract class ChunkMonitorEvent {
 
     public static class Tessellated extends BasicChunkEvent {
 
-        public final ChunkMeshInfo meshInfo;
+        public final TessellatedChunkInfo meshInfo;
 
-        public Tessellated(Vector3i position, ChunkMesh[] mesh) {
+        public Tessellated(Vector3i position, PackedVertexData[] mesh) {
             super(position);
-            this.meshInfo = new ChunkMeshInfo(mesh);
+            this.meshInfo = new TessellatedChunkInfo(mesh);
         }
     }
 }

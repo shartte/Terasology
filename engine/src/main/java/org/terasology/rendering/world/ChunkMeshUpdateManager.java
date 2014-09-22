@@ -21,8 +21,8 @@ import com.google.common.collect.Sets;
 import org.terasology.engine.GameEngine;
 import org.terasology.monitoring.chunk.ChunkMonitor;
 import org.terasology.registry.CoreRegistry;
-import org.terasology.rendering.primitives.ChunkMesh;
 import org.terasology.rendering.primitives.ChunkTessellator;
+import org.terasology.rendering.primitives.PackedVertexData;
 import org.terasology.world.ChunkView;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.chunks.ChunkConstants;
@@ -105,7 +105,7 @@ public final class ChunkMeshUpdateManager {
 
         @Override
         public void run() {
-            ChunkMesh[] newMeshes = new ChunkMesh[WorldRendererLwjgl.VERTICAL_SEGMENTS];
+            PackedVertexData[] newMeshes = new PackedVertexData[WorldRendererLwjgl.VERTICAL_SEGMENTS];
             ChunkView chunkView = worldProvider.getLocalView(c.getPosition());
             if (chunkView != null) {
                 c.setDirty(false);

@@ -16,6 +16,8 @@
 package org.terasology.rendering.world;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,9 +53,7 @@ import org.terasology.rendering.cameras.PerspectiveCamera;
 import org.terasology.rendering.logic.LightComponent;
 import org.terasology.rendering.logic.MeshRenderer;
 import org.terasology.rendering.opengl.DefaultRenderingProcess;
-import org.terasology.rendering.primitives.ChunkMesh;
-import org.terasology.rendering.primitives.ChunkTessellator;
-import org.terasology.rendering.primitives.LightGeometryHelper;
+import org.terasology.rendering.primitives.*;
 import org.terasology.world.ChunkView;
 import org.terasology.world.TimerEvent;
 import org.terasology.world.WorldCommands;
@@ -65,31 +65,9 @@ import org.terasology.world.chunks.RenderableChunk;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_FILL;
-import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
-import static org.lwjgl.opengl.GL11.GL_LEQUAL;
-import static org.lwjgl.opengl.GL11.GL_LIGHT0;
-import static org.lwjgl.opengl.GL11.GL_LINE;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glCullFace;
-import static org.lwjgl.opengl.GL11.glDepthFunc;
-import static org.lwjgl.opengl.GL11.glDepthMask;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glPolygonMode;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * The world of Terasology. At its most basic the world contains chunks (consisting of a fixed amount of blocks)
@@ -144,6 +122,8 @@ public final class WorldRendererLwjgl implements WorldRenderer {
 
     private WorldRenderingStage currentRenderingStage = WorldRenderingStage.DEFAULT;
 
+    private final GenericObjectPool<PackedVertexData> tessellatedChunkPool;
+
     /* HORIZON */
     private final Skysphere skysphere;
 
@@ -179,15 +159,22 @@ public final class WorldRendererLwjgl implements WorldRenderer {
 
     private ComponentSystemManager systemManager;
     private Config config;
+    private GLBufferPool bufferPool;
 
     /**
      * Initializes a new (local) world for the single player mode.
      */
     public WorldRendererLwjgl(WorldProvider worldProvider, ChunkProvider chunkProvider, LocalPlayerSystem localPlayerSystem, GLBufferPool bufferPool) {
+        this.bufferPool = bufferPool;
         this.chunkProvider = chunkProvider;
         this.worldProvider = worldProvider;
         bulletPhysics = new BulletPhysics(worldProvider);
-        chunkTessellator = new ChunkTessellator(bufferPool);
+
+        GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
+        poolConfig.setMaxIdle(10);
+        this.tessellatedChunkPool = new GenericObjectPool<>(new PackedVertexDataFactory(), poolConfig);
+
+        chunkTessellator = new ChunkTessellator(tessellatedChunkPool);
         skysphere = new Skysphere(this);
         chunkMeshUpdateManager = new ChunkMeshUpdateManager(chunkTessellator, worldProvider);
         worldTimeEventManager = new WorldTimeEventManager(worldProvider);
@@ -406,24 +393,15 @@ public final class WorldRendererLwjgl implements WorldRenderer {
             PerformanceMonitor.startActivity("Building Mesh VBOs");
             for (RenderableChunk c : chunkMeshUpdateManager.availableChunksForUpdate()) {
                 if (chunksInProximity.contains(c) && c.getPendingMesh() != null) {
-                    for (int i = 0; i < c.getPendingMesh().length; i++) {
-                        c.getPendingMesh()[i].generateVBOs();
-                    }
-                    if (c.getMesh() != null) {
-                        for (int i = 0; i < c.getMesh().length; i++) {
-                            c.getMesh()[i].dispose();
-                        }
-                    }
-                    c.setMesh(c.getPendingMesh());
-                    c.setPendingMesh(null);
+                    updateChunkMesh(c);
                 } else {
-                    ChunkMesh[] pendingMesh = c.getPendingMesh();
-                    c.setPendingMesh(null);
-                    if (pendingMesh != null) {
-                        for (ChunkMesh mesh : pendingMesh) {
-                            mesh.dispose();
+                    // Return all pending tessellated chunks to the pool
+                    if (c.getPendingMesh() != null) {
+                        for (PackedVertexData packedVertexData : c.getPendingMesh()) {
+                            tessellatedChunkPool.returnObject(packedVertexData);
                         }
                     }
+                    c.setPendingMesh(null);
                 }
             }
             PerformanceMonitor.endActivity();
@@ -1137,31 +1115,41 @@ public final class WorldRendererLwjgl implements WorldRenderer {
                 }
                 chunk.setDirty(false);
 
-                ChunkMesh[] newMeshes = new ChunkMesh[VERTICAL_SEGMENTS];
+                PackedVertexData[] newMeshes = new PackedVertexData[VERTICAL_SEGMENTS];
                 for (int seg = 0; seg < VERTICAL_SEGMENTS; seg++) {
                     newMeshes[seg] = chunkTessellator.generateMesh(view,
                         ChunkConstants.SIZE_Y / VERTICAL_SEGMENTS, seg * (ChunkConstants.SIZE_Y / VERTICAL_SEGMENTS));
                 }
 
                 chunk.setPendingMesh(newMeshes);
+                updateChunkMesh(chunk);
 
-                if (chunk.getPendingMesh() != null) {
-
-                    for (int j = 0; j < chunk.getPendingMesh().length; j++) {
-                        chunk.getPendingMesh()[j].generateVBOs();
-                    }
-                    if (chunk.getMesh() != null) {
-                        for (int j = 0; j < chunk.getMesh().length; j++) {
-                            chunk.getMesh()[j].dispose();
-                        }
-                    }
-                    chunk.setMesh(chunk.getPendingMesh());
-                    chunk.setPendingMesh(null);
-                }
                 return false;
             }
         }
         return complete;
+    }
+
+    private void updateChunkMesh(RenderableChunk c) {
+
+        if (c.getPendingMesh() == null)
+            return;
+
+        // Create the actual meshes
+        if (c.getMesh() == null) {
+            c.setMesh(new ChunkMesh[VERTICAL_SEGMENTS]);
+            for (int i = 0; i < VERTICAL_SEGMENTS; i++) {
+                c.getMesh()[i] = new ChunkMesh(bufferPool);
+            }
+        }
+
+        for (int i = 0; i < c.getPendingMesh().length; i++) {
+            PackedVertexData packedVertexData = c.getPendingMesh()[i];
+            c.getMesh()[i].generateVBOs(packedVertexData);
+            tessellatedChunkPool.returnObject(packedVertexData);
+        }
+        c.setPendingMesh(null);
+
     }
 
     @Override

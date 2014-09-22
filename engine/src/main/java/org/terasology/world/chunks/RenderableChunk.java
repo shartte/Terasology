@@ -18,6 +18,7 @@ package org.terasology.world.chunks;
 import org.terasology.math.AABB;
 import org.terasology.module.sandbox.API;
 import org.terasology.rendering.primitives.ChunkMesh;
+import org.terasology.rendering.primitives.PackedVertexData;
 
 /**
  * @author Immortius
@@ -33,7 +34,7 @@ public interface RenderableChunk extends LitChunk {
 
     void setMesh(ChunkMesh[] mesh);
 
-    void setPendingMesh(ChunkMesh[] mesh);
+    void setPendingMesh(PackedVertexData[] mesh);
 
     void setAnimated(boolean animated);
 
@@ -41,7 +42,7 @@ public interface RenderableChunk extends LitChunk {
 
     ChunkMesh[] getMesh();
 
-    ChunkMesh[] getPendingMesh();
+    PackedVertexData[] getPendingMesh();
 
     AABB getSubMeshAABB(int subMesh);
 

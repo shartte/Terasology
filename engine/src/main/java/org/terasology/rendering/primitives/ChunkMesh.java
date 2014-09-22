@@ -15,19 +15,12 @@
  */
 package org.terasology.rendering.primitives;
 
-import com.google.common.collect.Maps;
-import gnu.trove.list.TFloatList;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TFloatArrayList;
-import gnu.trove.list.array.TIntArrayList;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.terasology.engine.subsystem.lwjgl.GLBufferPool;
 import org.terasology.rendering.VertexBufferObjectUtil;
 
-import java.nio.IntBuffer;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
@@ -99,54 +92,35 @@ public class ChunkMesh {
     /* STATS */
     private int triangleCount = -1;
 
-    /* TEMPORARY DATA */
-    private Map<RenderType, VertexElements> vertexElements = Maps.newEnumMap(RenderType.class);
-
     private boolean disposed;
 
     /* CONCURRENCY */
     private ReentrantLock lock = new ReentrantLock();
 
-    /* MEASUREMENTS */
-    private int timeToGenerateBlockVertices;
-    private int timeToGenerateOptimizedBuffers;
-
     private GLBufferPool bufferPool;
 
     public ChunkMesh(GLBufferPool bufferPool) {
         this.bufferPool = bufferPool;
-        for (RenderType type : RenderType.values()) {
-            vertexElements.put(type, new VertexElements());
-        }
-    }
-
-    public VertexElements getVertexElements(RenderType renderType) {
-        return vertexElements.get(renderType);
-    }
-
-    public boolean isGenerated() {
-        return vertexElements == null;
     }
 
     /**
      * Generates the VBOs from the pre calculated arrays.
      *
      * @return True if something was generated
+     * @param packedVertexData The tesellated chunk used to upload to the GPU.
      */
-    public boolean generateVBOs() {
+    public boolean generateVBOs(PackedVertexData packedVertexData) {
         if (lock.tryLock()) {
             try {
                 // IMPORTANT: A mesh can only be generated once.
-                if (vertexElements == null || disposed) {
+                if (disposed) {
                     return false;
                 }
 
                 for (RenderType type : RenderType.values()) {
-                    generateVBO(type);
+                    generateVBO(packedVertexData, type);
                 }
 
-                // Free unused space on the heap
-                vertexElements = null;
                 // Calculate the final amount of triangles
                 triangleCount = (vertexCount[0] + vertexCount[1] + vertexCount[2] + vertexCount[3]) / 3;
             } finally {
@@ -159,12 +133,16 @@ public class ChunkMesh {
         return false;
     }
 
-    private void generateVBO(RenderType type) {
-        VertexElements elements = vertexElements.get(type);
+    private void generateVBO(PackedVertexData packedVertexData, RenderType type) {
+        PackedVertexData.VertexElements elements = packedVertexData.getVertexElements(type);
         int id = type.getIndex();
         if (!disposed && elements.finalIndices.limit() > 0 && elements.finalVertices.limit() > 0) {
-            vertexBuffers[id] = bufferPool.get("chunkMesh");
-            idxBuffers[id] = bufferPool.get("chunkMesh");
+            if (vertexBuffers[id] == 0) {
+                vertexBuffers[id] = bufferPool.get("chunkMesh");
+            }
+            if (idxBuffers[id] == 0) {
+                idxBuffers[id] = bufferPool.get("chunkMesh");
+            }
             vertexCount[id] = elements.finalIndices.limit();
 
             VertexBufferObjectUtil.bufferVboElementData(idxBuffers[id], elements.finalIndices, GL15.GL_STATIC_DRAW);
@@ -259,7 +237,6 @@ public class ChunkMesh {
                 }
 
                 disposed = true;
-                vertexElements = null;
             }
         } finally {
             lock.unlock();
@@ -288,46 +265,4 @@ public class ChunkMesh {
         return triangleCount == 0;
     }
 
-    public void setTimeToGenerateBlockVertices(int timeToGenerateBlockVertices) {
-        this.timeToGenerateBlockVertices = timeToGenerateBlockVertices;
-    }
-
-    public int getTimeToGenerateBlockVertices() {
-        return timeToGenerateBlockVertices;
-    }
-
-    public void setTimeToGenerateOptimizedBuffers(int timeToGenerateOptimizedBuffers) {
-        this.timeToGenerateOptimizedBuffers = timeToGenerateOptimizedBuffers;
-    }
-
-    public int getTimeToGenerateOptimizedBuffers() {
-        return timeToGenerateOptimizedBuffers;
-    }
-
-    /**
-     * Data structure for storing vertex data. Abused like a "struct" in C/C++. Just sad.
-     */
-    public static class VertexElements {
-
-        public final TFloatList normals;
-        public final TFloatList vertices;
-        public final TFloatList tex;
-        public final TFloatList color;
-        public final TIntList indices;
-        public final TIntList flags;
-        public int vertexCount;
-
-        public IntBuffer finalVertices;
-        public IntBuffer finalIndices;
-
-        public VertexElements() {
-            vertexCount = 0;
-            normals = new TFloatArrayList();
-            vertices = new TFloatArrayList();
-            tex = new TFloatArrayList();
-            color = new TFloatArrayList();
-            indices = new TIntArrayList();
-            flags = new TIntArrayList();
-        }
-    }
 }

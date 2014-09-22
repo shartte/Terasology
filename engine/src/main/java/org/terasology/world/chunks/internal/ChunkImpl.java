@@ -26,6 +26,7 @@ import org.terasology.monitoring.chunk.ChunkMonitor;
 import org.terasology.protobuf.EntityData;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.rendering.primitives.ChunkMesh;
+import org.terasology.rendering.primitives.PackedVertexData;
 import org.terasology.world.biomes.Biome;
 import org.terasology.world.biomes.BiomeManager;
 import org.terasology.world.block.Block;
@@ -86,7 +87,7 @@ public class ChunkImpl implements Chunk {
 
     // Rendering
     private ChunkMesh[] activeMesh;
-    private ChunkMesh[] pendingMesh;
+    private PackedVertexData[] pendingMesh;
     private AABB[] subMeshAABB;
 
     public ChunkImpl(int x, int y, int z) {
@@ -456,7 +457,7 @@ public class ChunkImpl implements Chunk {
     }
 
     @Override
-    public void setPendingMesh(ChunkMesh[] mesh) {
+    public void setPendingMesh(PackedVertexData[] mesh) {
         this.pendingMesh = mesh;
     }
 
@@ -476,7 +477,7 @@ public class ChunkImpl implements Chunk {
     }
 
     @Override
-    public ChunkMesh[] getPendingMesh() {
+    public PackedVertexData[] getPendingMesh() {
         return pendingMesh;
     }
 

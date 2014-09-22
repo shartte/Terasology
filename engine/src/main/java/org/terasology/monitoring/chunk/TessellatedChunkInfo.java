@@ -16,10 +16,11 @@
 package org.terasology.monitoring.chunk;
 
 import org.terasology.rendering.primitives.ChunkMesh;
+import org.terasology.rendering.primitives.PackedVertexData;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ChunkMeshInfo {
+public class TessellatedChunkInfo {
 
     public final int totalFinalVertices;
     public final int totalFinalIndices;
@@ -27,7 +28,7 @@ public class ChunkMeshInfo {
     public final int totalTimeToGenerateBlockVertices;
     public final int totalTimeToGenerateOptimizedBuffers;
 
-    public ChunkMeshInfo(ChunkMesh[] mesh) {
+    public TessellatedChunkInfo(PackedVertexData[] mesh) {
         checkNotNull(mesh, "The parameter 'mesh' must not be null");
 
         int vertices = 0;
@@ -36,13 +37,11 @@ public class ChunkMeshInfo {
         int timeToGenerateOptimizedBuffers = 0;
 
         for (int i = 0; i < mesh.length; i++) {
-            final ChunkMesh segment = checkNotNull(mesh[i], "Chunk mesh segment #" + i + " must not be null");
-            if (!segment.isGenerated()) {
-                for (ChunkMesh.RenderType type : ChunkMesh.RenderType.values()) {
-                    final ChunkMesh.VertexElements element = segment.getVertexElements(type);
-                    vertices += element.finalVertices.limit();
-                    indices += element.finalIndices.limit();
-                }
+            final PackedVertexData segment = checkNotNull(mesh[i], "Chunk mesh segment #" + i + " must not be null");
+            for (ChunkMesh.RenderType type : ChunkMesh.RenderType.values()) {
+                final PackedVertexData.VertexElements element = segment.getVertexElements(type);
+                vertices += element.finalVertices.limit();
+                indices += element.finalIndices.limit();
             }
             timeToGenerateBlockVertices += segment.getTimeToGenerateBlockVertices();
             timeToGenerateOptimizedBuffers += segment.getTimeToGenerateOptimizedBuffers();

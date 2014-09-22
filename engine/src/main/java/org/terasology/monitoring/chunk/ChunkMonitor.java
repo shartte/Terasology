@@ -19,7 +19,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.eventbus.EventBus;
 import org.terasology.math.Vector3i;
-import org.terasology.rendering.primitives.ChunkMesh;
+import org.terasology.rendering.primitives.PackedVertexData;
 import org.terasology.world.chunks.Chunk;
 import org.terasology.world.chunks.ChunkProvider;
 
@@ -87,7 +87,7 @@ public final class ChunkMonitor {
         post(new ChunkMonitorEvent.Deflated(chunk.getPosition(), oldSize, newSize));
     }
 
-    public static void fireChunkTessellated(Vector3i chunkPos, ChunkMesh[] mesh) {
+    public static void fireChunkTessellated(Vector3i chunkPos, PackedVertexData[] mesh) {
         Preconditions.checkNotNull(chunkPos, "The parameter 'chunkPos' must not be null");
         post(new ChunkMonitorEvent.Tessellated(chunkPos, mesh));
     }

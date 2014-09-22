@@ -16,7 +16,7 @@
 package org.terasology.world.block.shapes;
 
 import com.bulletphysics.linearmath.QuaternionUtil;
-import org.terasology.rendering.primitives.ChunkMesh;
+import org.terasology.rendering.primitives.ChunkVertexElements;
 import org.terasology.rendering.primitives.ChunkVertexFlag;
 
 import javax.vecmath.Quat4f;
@@ -80,31 +80,30 @@ public class BlockMeshPart {
         return new BlockMeshPart(vertices, normals, newTexCoords, indices);
     }
 
-    public void appendTo(ChunkMesh chunk, int offsetX, int offsetY, int offsetZ, Vector4f colorOffset, ChunkMesh.RenderType renderType, ChunkVertexFlag flags) {
-        ChunkMesh.VertexElements elements = chunk.getVertexElements(renderType);
+    public void appendTo(ChunkVertexElements vertexElements, int offsetX, int offsetY, int offsetZ, Vector4f colorOffset, ChunkVertexFlag flags) {
         for (Vector2f texCoord : texCoords) {
-            elements.tex.add(texCoord.x);
-            elements.tex.add(texCoord.y);
+            vertexElements.tex.add(texCoord.x);
+            vertexElements.tex.add(texCoord.y);
         }
 
-        int nextIndex = elements.vertexCount;
+        int nextIndex = vertexElements.vertexCount;
         for (int vIdx = 0; vIdx < vertices.length; ++vIdx) {
-            elements.color.add(colorOffset.x);
-            elements.color.add(colorOffset.y);
-            elements.color.add(colorOffset.z);
-            elements.color.add(colorOffset.w);
-            elements.vertices.add(vertices[vIdx].x + offsetX);
-            elements.vertices.add(vertices[vIdx].y + offsetY);
-            elements.vertices.add(vertices[vIdx].z + offsetZ);
-            elements.normals.add(normals[vIdx].x);
-            elements.normals.add(normals[vIdx].y);
-            elements.normals.add(normals[vIdx].z);
-            elements.flags.add(flags.getValue());
+            vertexElements.color.add(colorOffset.x);
+            vertexElements.color.add(colorOffset.y);
+            vertexElements.color.add(colorOffset.z);
+            vertexElements.color.add(colorOffset.w);
+            vertexElements.vertices.add(vertices[vIdx].x + offsetX);
+            vertexElements.vertices.add(vertices[vIdx].y + offsetY);
+            vertexElements.vertices.add(vertices[vIdx].z + offsetZ);
+            vertexElements.normals.add(normals[vIdx].x);
+            vertexElements.normals.add(normals[vIdx].y);
+            vertexElements.normals.add(normals[vIdx].z);
+            vertexElements.flags.add(flags.getValue());
         }
-        elements.vertexCount += vertices.length;
+        vertexElements.vertexCount += vertices.length;
 
         for (int index : indices) {
-            elements.indices.add(index + nextIndex);
+            vertexElements.indices.add(index + nextIndex);
         }
     }
 
