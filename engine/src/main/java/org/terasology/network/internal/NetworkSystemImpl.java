@@ -726,8 +726,36 @@ public class NetworkSystemImpl implements EntityChangeSubscriber, NetworkSystem 
         client.disconnect();
     }
 
+    private void kickClient(NetClient client, String reason) {
+        client.send(
+            NetData.NetMessage.newBuilder().setKick(NetData.KickMessage.newBuilder().setReason(reason)).build()
+        );
+
+        // Clients that have not yet fully connected, can just be disconnected on a fast path
+        if (clientList.contains(client)) {
+            forceDisconnect(client);
+        } else {
+            client.disconnect();
+        }
+    }
+
     private void processNewClient(NetClient client) {
         logger.info("New client connected: {}", client.getName());
+
+        // Navigate existing clients and validate that no client with the same identity is already connected
+        for (Client existingClient : clientList) {
+            if (existingClient.getId().equals(client.getId())) {
+                logger.error("A client with the same identity '{}' is already connected.", client.getId());
+                kickClient(client, "A client with the same identity as you is already connected.");
+                return;
+            }
+            if (existingClient.getName().equals(client.getName())) {
+                logger.error("A client with the same name '{}' is already connected.", client.getName());
+                kickClient(client, "A client with your name is already connected.");
+                return;
+            }
+        }
+
         client.connected(entityManager, entitySerializer, eventSerializer, entitySystemLibrary);
         client.send(NetData.NetMessage.newBuilder().setJoinComplete(
                 NetData.JoinCompleteMessage.newBuilder().setClientId(client.getEntity().getComponent(NetworkComponent.class).getNetworkId())).build());

@@ -78,6 +78,9 @@ public class ClientConnectionHandler extends SimpleChannelUpstreamHandler {
             receiveModule(message.getModuleData());
         } else if (message.hasJoinComplete()) {
             completeJoin(message.getJoinComplete());
+        } else if (message.hasKick()) {
+            joinStatus.setErrorMessage(message.getKick().getReason());
+            channelHandlerContext.getChannel().close();
         } else {
             logger.error("Received unexpected message");
         }

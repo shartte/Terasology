@@ -27,6 +27,7 @@ message NetMessage {
     optional ModuleDataHeader moduleDataHeader = 20;
     optional ModuleData moduleData = 21;
     optional JoinCompleteMessage joinComplete = 22;
+    optional KickMessage kick = 23;
 
     // Authentication
     optional HandshakeHello handshakeHello = 100;
@@ -128,6 +129,12 @@ message JoinCompleteMessage {
     optional int32 clientId = 1;
 
     extensions 5000 to max;
+}
+
+message KickMessage {
+  optional string reason = 1;
+
+  extensions 5000 to max;
 }
 
 message ServerInfoMessage {

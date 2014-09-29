@@ -41,6 +41,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
 
     private NetworkSystemImpl networkSystem;
     private ServerImpl server;
+    private boolean gotKicked;
 
     public ClientHandler(NetworkSystemImpl networkSystem) {
         this.networkSystem = networkSystem;
@@ -49,7 +50,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
     @Override
     public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         GameEngine gameEngine = CoreRegistry.get(GameEngine.class);
-        if (gameEngine != null) {
+        if (gameEngine != null && !gotKicked && !(gameEngine.getState() instanceof StateMainMenu)) {
             gameEngine.changeState(new StateMainMenu("Disconnected From Server"));
         }
     }
@@ -57,7 +58,16 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
         NetMessage message = (NetMessage) e.getMessage();
-        server.queueMessage(message);
+        if (message.hasKick()) {
+            gotKicked = true;
+            GameEngine gameEngine = CoreRegistry.get(GameEngine.class);
+            if (gameEngine != null) {
+                gameEngine.changeState(new StateMainMenu("Disconnected From Server\n" + message.getKick().getReason()));
+            }
+            e.getChannel().close();
+        } else {
+            server.queueMessage(message);
+        }
     }
 
     @Override

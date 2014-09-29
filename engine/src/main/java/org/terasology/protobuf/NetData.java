@@ -331,6 +331,20 @@ public final class NetData {
      */
     org.terasology.protobuf.NetData.JoinCompleteMessageOrBuilder getJoinCompleteOrBuilder();
 
+    // optional .KickMessage kick = 23;
+    /**
+     * <code>optional .KickMessage kick = 23;</code>
+     */
+    boolean hasKick();
+    /**
+     * <code>optional .KickMessage kick = 23;</code>
+     */
+    org.terasology.protobuf.NetData.KickMessage getKick();
+    /**
+     * <code>optional .KickMessage kick = 23;</code>
+     */
+    org.terasology.protobuf.NetData.KickMessageOrBuilder getKickOrBuilder();
+
     // optional .HandshakeHello handshakeHello = 100;
     /**
      * <code>optional .HandshakeHello handshakeHello = 100;</code>
@@ -605,9 +619,22 @@ public final class NetData {
               bitField0_ |= 0x00000040;
               break;
             }
+            case 186: {
+              org.terasology.protobuf.NetData.KickMessage.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000080) == 0x00000080)) {
+                subBuilder = kick_.toBuilder();
+              }
+              kick_ = input.readMessage(org.terasology.protobuf.NetData.KickMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(kick_);
+                kick_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000080;
+              break;
+            }
             case 802: {
               org.terasology.protobuf.NetData.HandshakeHello.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000080) == 0x00000080)) {
+              if (((bitField0_ & 0x00000100) == 0x00000100)) {
                 subBuilder = handshakeHello_.toBuilder();
               }
               handshakeHello_ = input.readMessage(org.terasology.protobuf.NetData.HandshakeHello.PARSER, extensionRegistry);
@@ -615,12 +642,12 @@ public final class NetData {
                 subBuilder.mergeFrom(handshakeHello_);
                 handshakeHello_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000080;
+              bitField0_ |= 0x00000100;
               break;
             }
             case 810: {
               org.terasology.protobuf.NetData.NewIdentityRequest.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000100) == 0x00000100)) {
+              if (((bitField0_ & 0x00000200) == 0x00000200)) {
                 subBuilder = newIdentityRequest_.toBuilder();
               }
               newIdentityRequest_ = input.readMessage(org.terasology.protobuf.NetData.NewIdentityRequest.PARSER, extensionRegistry);
@@ -628,12 +655,12 @@ public final class NetData {
                 subBuilder.mergeFrom(newIdentityRequest_);
                 newIdentityRequest_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000100;
+              bitField0_ |= 0x00000200;
               break;
             }
             case 818: {
               org.terasology.protobuf.NetData.ProvisionIdentity.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000200) == 0x00000200)) {
+              if (((bitField0_ & 0x00000400) == 0x00000400)) {
                 subBuilder = provisionIdentity_.toBuilder();
               }
               provisionIdentity_ = input.readMessage(org.terasology.protobuf.NetData.ProvisionIdentity.PARSER, extensionRegistry);
@@ -641,12 +668,12 @@ public final class NetData {
                 subBuilder.mergeFrom(provisionIdentity_);
                 provisionIdentity_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000200;
+              bitField0_ |= 0x00000400;
               break;
             }
             case 826: {
               org.terasology.protobuf.NetData.HandshakeVerification.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000400) == 0x00000400)) {
+              if (((bitField0_ & 0x00000800) == 0x00000800)) {
                 subBuilder = handshakeVerification_.toBuilder();
               }
               handshakeVerification_ = input.readMessage(org.terasology.protobuf.NetData.HandshakeVerification.PARSER, extensionRegistry);
@@ -654,7 +681,7 @@ public final class NetData {
                 subBuilder.mergeFrom(handshakeVerification_);
                 handshakeVerification_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000400;
+              bitField0_ |= 0x00000800;
               break;
             }
           }
@@ -1196,6 +1223,28 @@ public final class NetData {
       return joinComplete_;
     }
 
+    // optional .KickMessage kick = 23;
+    public static final int KICK_FIELD_NUMBER = 23;
+    private org.terasology.protobuf.NetData.KickMessage kick_;
+    /**
+     * <code>optional .KickMessage kick = 23;</code>
+     */
+    public boolean hasKick() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>optional .KickMessage kick = 23;</code>
+     */
+    public org.terasology.protobuf.NetData.KickMessage getKick() {
+      return kick_;
+    }
+    /**
+     * <code>optional .KickMessage kick = 23;</code>
+     */
+    public org.terasology.protobuf.NetData.KickMessageOrBuilder getKickOrBuilder() {
+      return kick_;
+    }
+
     // optional .HandshakeHello handshakeHello = 100;
     public static final int HANDSHAKEHELLO_FIELD_NUMBER = 100;
     private org.terasology.protobuf.NetData.HandshakeHello handshakeHello_;
@@ -1207,7 +1256,7 @@ public final class NetData {
      * </pre>
      */
     public boolean hasHandshakeHello() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
      * <code>optional .HandshakeHello handshakeHello = 100;</code>
@@ -1237,7 +1286,7 @@ public final class NetData {
      * <code>optional .NewIdentityRequest newIdentityRequest = 101;</code>
      */
     public boolean hasNewIdentityRequest() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
      * <code>optional .NewIdentityRequest newIdentityRequest = 101;</code>
@@ -1259,7 +1308,7 @@ public final class NetData {
      * <code>optional .ProvisionIdentity provisionIdentity = 102;</code>
      */
     public boolean hasProvisionIdentity() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
      * <code>optional .ProvisionIdentity provisionIdentity = 102;</code>
@@ -1281,7 +1330,7 @@ public final class NetData {
      * <code>optional .HandshakeVerification handshakeVerification = 103;</code>
      */
     public boolean hasHandshakeVerification() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
      * <code>optional .HandshakeVerification handshakeVerification = 103;</code>
@@ -1313,6 +1362,7 @@ public final class NetData {
       moduleDataHeader_ = org.terasology.protobuf.NetData.ModuleDataHeader.getDefaultInstance();
       moduleData_ = org.terasology.protobuf.NetData.ModuleData.getDefaultInstance();
       joinComplete_ = org.terasology.protobuf.NetData.JoinCompleteMessage.getDefaultInstance();
+      kick_ = org.terasology.protobuf.NetData.KickMessage.getDefaultInstance();
       handshakeHello_ = org.terasology.protobuf.NetData.HandshakeHello.getDefaultInstance();
       newIdentityRequest_ = org.terasology.protobuf.NetData.NewIdentityRequest.getDefaultInstance();
       provisionIdentity_ = org.terasology.protobuf.NetData.ProvisionIdentity.getDefaultInstance();
@@ -1413,6 +1463,12 @@ public final class NetData {
           return false;
         }
       }
+      if (hasKick()) {
+        if (!getKick().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       if (hasHandshakeHello()) {
         if (!getHandshakeHello().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -1500,15 +1556,18 @@ public final class NetData {
         output.writeMessage(22, joinComplete_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeMessage(100, handshakeHello_);
+        output.writeMessage(23, kick_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeMessage(101, newIdentityRequest_);
+        output.writeMessage(100, handshakeHello_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeMessage(102, provisionIdentity_);
+        output.writeMessage(101, newIdentityRequest_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeMessage(102, provisionIdentity_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeMessage(103, handshakeVerification_);
       }
       extensionWriter.writeUntil(536870912, output);
@@ -1587,17 +1646,21 @@ public final class NetData {
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(100, handshakeHello_);
+          .computeMessageSize(23, kick_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(101, newIdentityRequest_);
+          .computeMessageSize(100, handshakeHello_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(102, provisionIdentity_);
+          .computeMessageSize(101, newIdentityRequest_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(102, provisionIdentity_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(103, handshakeVerification_);
       }
@@ -1725,6 +1788,7 @@ public final class NetData {
           getModuleDataHeaderFieldBuilder();
           getModuleDataFieldBuilder();
           getJoinCompleteFieldBuilder();
+          getKickFieldBuilder();
           getHandshakeHelloFieldBuilder();
           getNewIdentityRequestFieldBuilder();
           getProvisionIdentityFieldBuilder();
@@ -1829,30 +1893,36 @@ public final class NetData {
           joinCompleteBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00008000);
+        if (kickBuilder_ == null) {
+          kick_ = org.terasology.protobuf.NetData.KickMessage.getDefaultInstance();
+        } else {
+          kickBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00010000);
         if (handshakeHelloBuilder_ == null) {
           handshakeHello_ = org.terasology.protobuf.NetData.HandshakeHello.getDefaultInstance();
         } else {
           handshakeHelloBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00020000);
         if (newIdentityRequestBuilder_ == null) {
           newIdentityRequest_ = org.terasology.protobuf.NetData.NewIdentityRequest.getDefaultInstance();
         } else {
           newIdentityRequestBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00040000);
         if (provisionIdentityBuilder_ == null) {
           provisionIdentity_ = org.terasology.protobuf.NetData.ProvisionIdentity.getDefaultInstance();
         } else {
           provisionIdentityBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         if (handshakeVerificationBuilder_ == null) {
           handshakeVerification_ = org.terasology.protobuf.NetData.HandshakeVerification.getDefaultInstance();
         } else {
           handshakeVerificationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         return this;
       }
 
@@ -2017,29 +2087,37 @@ public final class NetData {
         if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
           to_bitField0_ |= 0x00000080;
         }
+        if (kickBuilder_ == null) {
+          result.kick_ = kick_;
+        } else {
+          result.kick_ = kickBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
+          to_bitField0_ |= 0x00000100;
+        }
         if (handshakeHelloBuilder_ == null) {
           result.handshakeHello_ = handshakeHello_;
         } else {
           result.handshakeHello_ = handshakeHelloBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
-          to_bitField0_ |= 0x00000100;
+        if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
+          to_bitField0_ |= 0x00000200;
         }
         if (newIdentityRequestBuilder_ == null) {
           result.newIdentityRequest_ = newIdentityRequest_;
         } else {
           result.newIdentityRequest_ = newIdentityRequestBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
-          to_bitField0_ |= 0x00000200;
+        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+          to_bitField0_ |= 0x00000400;
         }
         if (provisionIdentityBuilder_ == null) {
           result.provisionIdentity_ = provisionIdentity_;
         } else {
           result.provisionIdentity_ = provisionIdentityBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
-          to_bitField0_ |= 0x00000400;
+        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
+          to_bitField0_ |= 0x00000800;
         }
         if (handshakeVerificationBuilder_ == null) {
           result.handshakeVerification_ = handshakeVerification_;
@@ -2317,6 +2395,9 @@ public final class NetData {
         if (other.hasJoinComplete()) {
           mergeJoinComplete(other.getJoinComplete());
         }
+        if (other.hasKick()) {
+          mergeKick(other.getKick());
+        }
         if (other.hasHandshakeHello()) {
           mergeHandshakeHello(other.getHandshakeHello());
         }
@@ -2421,6 +2502,12 @@ public final class NetData {
         }
         if (hasJoinComplete()) {
           if (!getJoinComplete().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasKick()) {
+          if (!getKick().isInitialized()) {
             
             return false;
           }
@@ -5370,6 +5457,123 @@ public final class NetData {
         return joinCompleteBuilder_;
       }
 
+      // optional .KickMessage kick = 23;
+      private org.terasology.protobuf.NetData.KickMessage kick_ = org.terasology.protobuf.NetData.KickMessage.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.terasology.protobuf.NetData.KickMessage, org.terasology.protobuf.NetData.KickMessage.Builder, org.terasology.protobuf.NetData.KickMessageOrBuilder> kickBuilder_;
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public boolean hasKick() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public org.terasology.protobuf.NetData.KickMessage getKick() {
+        if (kickBuilder_ == null) {
+          return kick_;
+        } else {
+          return kickBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public Builder setKick(org.terasology.protobuf.NetData.KickMessage value) {
+        if (kickBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          kick_ = value;
+          onChanged();
+        } else {
+          kickBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00010000;
+        return this;
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public Builder setKick(
+          org.terasology.protobuf.NetData.KickMessage.Builder builderForValue) {
+        if (kickBuilder_ == null) {
+          kick_ = builderForValue.build();
+          onChanged();
+        } else {
+          kickBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00010000;
+        return this;
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public Builder mergeKick(org.terasology.protobuf.NetData.KickMessage value) {
+        if (kickBuilder_ == null) {
+          if (((bitField0_ & 0x00010000) == 0x00010000) &&
+              kick_ != org.terasology.protobuf.NetData.KickMessage.getDefaultInstance()) {
+            kick_ =
+              org.terasology.protobuf.NetData.KickMessage.newBuilder(kick_).mergeFrom(value).buildPartial();
+          } else {
+            kick_ = value;
+          }
+          onChanged();
+        } else {
+          kickBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00010000;
+        return this;
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public Builder clearKick() {
+        if (kickBuilder_ == null) {
+          kick_ = org.terasology.protobuf.NetData.KickMessage.getDefaultInstance();
+          onChanged();
+        } else {
+          kickBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00010000);
+        return this;
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public org.terasology.protobuf.NetData.KickMessage.Builder getKickBuilder() {
+        bitField0_ |= 0x00010000;
+        onChanged();
+        return getKickFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      public org.terasology.protobuf.NetData.KickMessageOrBuilder getKickOrBuilder() {
+        if (kickBuilder_ != null) {
+          return kickBuilder_.getMessageOrBuilder();
+        } else {
+          return kick_;
+        }
+      }
+      /**
+       * <code>optional .KickMessage kick = 23;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          org.terasology.protobuf.NetData.KickMessage, org.terasology.protobuf.NetData.KickMessage.Builder, org.terasology.protobuf.NetData.KickMessageOrBuilder> 
+          getKickFieldBuilder() {
+        if (kickBuilder_ == null) {
+          kickBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.terasology.protobuf.NetData.KickMessage, org.terasology.protobuf.NetData.KickMessage.Builder, org.terasology.protobuf.NetData.KickMessageOrBuilder>(
+                  kick_,
+                  getParentForChildren(),
+                  isClean());
+          kick_ = null;
+        }
+        return kickBuilder_;
+      }
+
       // optional .HandshakeHello handshakeHello = 100;
       private org.terasology.protobuf.NetData.HandshakeHello handshakeHello_ = org.terasology.protobuf.NetData.HandshakeHello.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
@@ -5382,7 +5586,7 @@ public final class NetData {
        * </pre>
        */
       public boolean hasHandshakeHello() {
-        return ((bitField0_ & 0x00010000) == 0x00010000);
+        return ((bitField0_ & 0x00020000) == 0x00020000);
       }
       /**
        * <code>optional .HandshakeHello handshakeHello = 100;</code>
@@ -5415,7 +5619,7 @@ public final class NetData {
         } else {
           handshakeHelloBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00020000;
         return this;
       }
       /**
@@ -5433,7 +5637,7 @@ public final class NetData {
         } else {
           handshakeHelloBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00020000;
         return this;
       }
       /**
@@ -5445,7 +5649,7 @@ public final class NetData {
        */
       public Builder mergeHandshakeHello(org.terasology.protobuf.NetData.HandshakeHello value) {
         if (handshakeHelloBuilder_ == null) {
-          if (((bitField0_ & 0x00010000) == 0x00010000) &&
+          if (((bitField0_ & 0x00020000) == 0x00020000) &&
               handshakeHello_ != org.terasology.protobuf.NetData.HandshakeHello.getDefaultInstance()) {
             handshakeHello_ =
               org.terasology.protobuf.NetData.HandshakeHello.newBuilder(handshakeHello_).mergeFrom(value).buildPartial();
@@ -5456,7 +5660,7 @@ public final class NetData {
         } else {
           handshakeHelloBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00020000;
         return this;
       }
       /**
@@ -5473,7 +5677,7 @@ public final class NetData {
         } else {
           handshakeHelloBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00020000);
         return this;
       }
       /**
@@ -5484,7 +5688,7 @@ public final class NetData {
        * </pre>
        */
       public org.terasology.protobuf.NetData.HandshakeHello.Builder getHandshakeHelloBuilder() {
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00020000;
         onChanged();
         return getHandshakeHelloFieldBuilder().getBuilder();
       }
@@ -5531,7 +5735,7 @@ public final class NetData {
        * <code>optional .NewIdentityRequest newIdentityRequest = 101;</code>
        */
       public boolean hasNewIdentityRequest() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00040000) == 0x00040000);
       }
       /**
        * <code>optional .NewIdentityRequest newIdentityRequest = 101;</code>
@@ -5556,7 +5760,7 @@ public final class NetData {
         } else {
           newIdentityRequestBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00040000;
         return this;
       }
       /**
@@ -5570,7 +5774,7 @@ public final class NetData {
         } else {
           newIdentityRequestBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00040000;
         return this;
       }
       /**
@@ -5578,7 +5782,7 @@ public final class NetData {
        */
       public Builder mergeNewIdentityRequest(org.terasology.protobuf.NetData.NewIdentityRequest value) {
         if (newIdentityRequestBuilder_ == null) {
-          if (((bitField0_ & 0x00020000) == 0x00020000) &&
+          if (((bitField0_ & 0x00040000) == 0x00040000) &&
               newIdentityRequest_ != org.terasology.protobuf.NetData.NewIdentityRequest.getDefaultInstance()) {
             newIdentityRequest_ =
               org.terasology.protobuf.NetData.NewIdentityRequest.newBuilder(newIdentityRequest_).mergeFrom(value).buildPartial();
@@ -5589,7 +5793,7 @@ public final class NetData {
         } else {
           newIdentityRequestBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00040000;
         return this;
       }
       /**
@@ -5602,14 +5806,14 @@ public final class NetData {
         } else {
           newIdentityRequestBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00040000);
         return this;
       }
       /**
        * <code>optional .NewIdentityRequest newIdentityRequest = 101;</code>
        */
       public org.terasology.protobuf.NetData.NewIdentityRequest.Builder getNewIdentityRequestBuilder() {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00040000;
         onChanged();
         return getNewIdentityRequestFieldBuilder().getBuilder();
       }
@@ -5648,7 +5852,7 @@ public final class NetData {
        * <code>optional .ProvisionIdentity provisionIdentity = 102;</code>
        */
       public boolean hasProvisionIdentity() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00080000) == 0x00080000);
       }
       /**
        * <code>optional .ProvisionIdentity provisionIdentity = 102;</code>
@@ -5673,7 +5877,7 @@ public final class NetData {
         } else {
           provisionIdentityBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00080000;
         return this;
       }
       /**
@@ -5687,7 +5891,7 @@ public final class NetData {
         } else {
           provisionIdentityBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00080000;
         return this;
       }
       /**
@@ -5695,7 +5899,7 @@ public final class NetData {
        */
       public Builder mergeProvisionIdentity(org.terasology.protobuf.NetData.ProvisionIdentity value) {
         if (provisionIdentityBuilder_ == null) {
-          if (((bitField0_ & 0x00040000) == 0x00040000) &&
+          if (((bitField0_ & 0x00080000) == 0x00080000) &&
               provisionIdentity_ != org.terasology.protobuf.NetData.ProvisionIdentity.getDefaultInstance()) {
             provisionIdentity_ =
               org.terasology.protobuf.NetData.ProvisionIdentity.newBuilder(provisionIdentity_).mergeFrom(value).buildPartial();
@@ -5706,7 +5910,7 @@ public final class NetData {
         } else {
           provisionIdentityBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00080000;
         return this;
       }
       /**
@@ -5719,14 +5923,14 @@ public final class NetData {
         } else {
           provisionIdentityBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         return this;
       }
       /**
        * <code>optional .ProvisionIdentity provisionIdentity = 102;</code>
        */
       public org.terasology.protobuf.NetData.ProvisionIdentity.Builder getProvisionIdentityBuilder() {
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00080000;
         onChanged();
         return getProvisionIdentityFieldBuilder().getBuilder();
       }
@@ -5765,7 +5969,7 @@ public final class NetData {
        * <code>optional .HandshakeVerification handshakeVerification = 103;</code>
        */
       public boolean hasHandshakeVerification() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
+        return ((bitField0_ & 0x00100000) == 0x00100000);
       }
       /**
        * <code>optional .HandshakeVerification handshakeVerification = 103;</code>
@@ -5790,7 +5994,7 @@ public final class NetData {
         } else {
           handshakeVerificationBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00100000;
         return this;
       }
       /**
@@ -5804,7 +6008,7 @@ public final class NetData {
         } else {
           handshakeVerificationBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00100000;
         return this;
       }
       /**
@@ -5812,7 +6016,7 @@ public final class NetData {
        */
       public Builder mergeHandshakeVerification(org.terasology.protobuf.NetData.HandshakeVerification value) {
         if (handshakeVerificationBuilder_ == null) {
-          if (((bitField0_ & 0x00080000) == 0x00080000) &&
+          if (((bitField0_ & 0x00100000) == 0x00100000) &&
               handshakeVerification_ != org.terasology.protobuf.NetData.HandshakeVerification.getDefaultInstance()) {
             handshakeVerification_ =
               org.terasology.protobuf.NetData.HandshakeVerification.newBuilder(handshakeVerification_).mergeFrom(value).buildPartial();
@@ -5823,7 +6027,7 @@ public final class NetData {
         } else {
           handshakeVerificationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00100000;
         return this;
       }
       /**
@@ -5836,14 +6040,14 @@ public final class NetData {
         } else {
           handshakeVerificationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         return this;
       }
       /**
        * <code>optional .HandshakeVerification handshakeVerification = 103;</code>
        */
       public org.terasology.protobuf.NetData.HandshakeVerification.Builder getHandshakeVerificationBuilder() {
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00100000;
         onChanged();
         return getHandshakeVerificationFieldBuilder().getBuilder();
       }
@@ -13662,6 +13866,492 @@ public final class NetData {
     }
 
     // @@protoc_insertion_point(class_scope:JoinCompleteMessage)
+  }
+
+  public interface KickMessageOrBuilder extends
+      com.google.protobuf.GeneratedMessage.
+          ExtendableMessageOrBuilder<KickMessage> {
+
+    // optional string reason = 1;
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    boolean hasReason();
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    java.lang.String getReason();
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getReasonBytes();
+  }
+  /**
+   * Protobuf type {@code KickMessage}
+   */
+  public static final class KickMessage extends
+      com.google.protobuf.GeneratedMessage.ExtendableMessage<
+        KickMessage> implements KickMessageOrBuilder {
+    // Use KickMessage.newBuilder() to construct.
+    private KickMessage(com.google.protobuf.GeneratedMessage.ExtendableBuilder<org.terasology.protobuf.NetData.KickMessage, ?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private KickMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final KickMessage defaultInstance;
+    public static KickMessage getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public KickMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private KickMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              reason_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.terasology.protobuf.NetData.internal_static_KickMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.terasology.protobuf.NetData.internal_static_KickMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.terasology.protobuf.NetData.KickMessage.class, org.terasology.protobuf.NetData.KickMessage.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<KickMessage> PARSER =
+        new com.google.protobuf.AbstractParser<KickMessage>() {
+      public KickMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KickMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KickMessage> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional string reason = 1;
+    public static final int REASON_FIELD_NUMBER = 1;
+    private java.lang.Object reason_;
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    public boolean hasReason() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    public java.lang.String getReason() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          reason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      reason_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!extensionsAreInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      com.google.protobuf.GeneratedMessage
+        .ExtendableMessage<org.terasology.protobuf.NetData.KickMessage>.ExtensionWriter extensionWriter =
+          newExtensionWriter();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getReasonBytes());
+      }
+      extensionWriter.writeUntil(536870912, output);
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getReasonBytes());
+      }
+      size += extensionsSerializedSize();
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.terasology.protobuf.NetData.KickMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.terasology.protobuf.NetData.KickMessage prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code KickMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.ExtendableBuilder<
+          org.terasology.protobuf.NetData.KickMessage, Builder> implements org.terasology.protobuf.NetData.KickMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.terasology.protobuf.NetData.internal_static_KickMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.terasology.protobuf.NetData.internal_static_KickMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.terasology.protobuf.NetData.KickMessage.class, org.terasology.protobuf.NetData.KickMessage.Builder.class);
+      }
+
+      // Construct using org.terasology.protobuf.NetData.KickMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        reason_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.terasology.protobuf.NetData.internal_static_KickMessage_descriptor;
+      }
+
+      public org.terasology.protobuf.NetData.KickMessage getDefaultInstanceForType() {
+        return org.terasology.protobuf.NetData.KickMessage.getDefaultInstance();
+      }
+
+      public org.terasology.protobuf.NetData.KickMessage build() {
+        org.terasology.protobuf.NetData.KickMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.terasology.protobuf.NetData.KickMessage buildPartial() {
+        org.terasology.protobuf.NetData.KickMessage result = new org.terasology.protobuf.NetData.KickMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.reason_ = reason_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.terasology.protobuf.NetData.KickMessage) {
+          return mergeFrom((org.terasology.protobuf.NetData.KickMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.terasology.protobuf.NetData.KickMessage other) {
+        if (other == org.terasology.protobuf.NetData.KickMessage.getDefaultInstance()) return this;
+        if (other.hasReason()) {
+          bitField0_ |= 0x00000001;
+          reason_ = other.reason_;
+          onChanged();
+        }
+        this.mergeExtensionFields(other);
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!extensionsAreInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.terasology.protobuf.NetData.KickMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.terasology.protobuf.NetData.KickMessage) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional string reason = 1;
+      private java.lang.Object reason_ = "";
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public boolean hasReason() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public java.lang.String getReason() {
+        java.lang.Object ref = reason_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          reason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReasonBytes() {
+        java.lang.Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder setReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder clearReason() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        reason_ = getDefaultInstance().getReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder setReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:KickMessage)
+    }
+
+    static {
+      defaultInstance = new KickMessage(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:KickMessage)
   }
 
   public interface ServerInfoMessageOrBuilder extends
@@ -23717,6 +24407,11 @@ public final class NetData {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_JoinCompleteMessage_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_KickMessage_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_KickMessage_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_ServerInfoMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -23785,7 +24480,7 @@ public final class NetData {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020NetMessage.proto\032\020EntityData.proto\"\325\006\n" +
+      "\n\020NetMessage.proto\032\020EntityData.proto\"\361\006\n" +
       "\nNetMessage\022\036\n\tchunkInfo\030\002 \003(\0132\013.ChunkSt" +
       "ore\0220\n\017invalidateChunk\030\003 \003(\0132\027.Invalidat" +
       "eChunkMessage\022(\n\013blockChange\030\004 \003(\0132\023.Blo" +
@@ -23802,64 +24497,66 @@ public final class NetData {
       "Request\022+\n\020moduleDataHeader\030\024 \001(\0132\021.Modu" +
       "leDataHeader\022\037\n\nmoduleData\030\025 \001(\0132\013.Modul" +
       "eData\022*\n\014joinComplete\030\026 \001(\0132\024.JoinComple" +
-      "teMessage\022\'\n\016handshakeHello\030d \001(\0132\017.Hand" +
-      "shakeHello\022/\n\022newIdentityRequest\030e \001(\0132\023" +
-      ".NewIdentityRequest\022-\n\021provisionIdentity",
-      "\030f \001(\0132\022.ProvisionIdentity\0225\n\025handshakeV" +
-      "erification\030g \001(\0132\026.HandshakeVerificatio" +
-      "n*\t\010\210\'\020\200\200\200\200\002\"a\n\016HandshakeHello\022\016\n\006random" +
-      "\030\001 \001(\014\022!\n\013certificate\030\002 \001(\0132\014.Certificat" +
-      "e\022\021\n\ttimestamp\030\003 \001(\022*\t\010\210\'\020\200\200\200\200\002\"H\n\022NewId" +
-      "entityRequest\022\027\n\017preMasterSecret\030\001 \001(\014\022\016" +
-      "\n\006random\030\002 \001(\014*\t\010\210\'\020\200\200\200\200\002\"=\n\021ProvisionId" +
-      "entity\022\035\n\025encryptedCertificates\030\001 \001(\014*\t\010" +
-      "\210\'\020\200\200\200\200\002\"]\n\016CertificateSet\022\'\n\021publicCert" +
-      "ificate\030\001 \001(\0132\014.Certificate\022\027\n\017privateEx",
-      "ponent\030\002 \001(\014*\t\010\210\'\020\200\200\200\200\002\"5\n\025HandshakeVeri" +
-      "fication\022\021\n\tsignature\030\001 \001(\014*\t\010\210\'\020\200\200\200\200\002\"Z" +
-      "\n\013Certificate\022\n\n\002id\030\001 \001(\t\022\017\n\007modulus\030\002 \001" +
-      "(\014\022\020\n\010exponent\030\003 \001(\014\022\021\n\tsignature\030\004 \001(\014*" +
-      "\t\010\210\'\020\200\200\200\200\002\"L\n\034BlockFamilyRegisteredMessa" +
-      "ge\022\020\n\010blockUri\030\001 \003(\t\022\017\n\007blockId\030\002 \003(\005*\t\010" +
-      "\210\'\020\200\200\200\200\002\"?\n\026InvalidateChunkMessage\022\032\n\003po" +
-      "s\030\001 \001(\0132\r.Vector3iData*\t\010\210\'\020\200\200\200\200\002\"M\n\022Blo" +
-      "ckChangeMessage\022\032\n\003pos\030\001 \001(\0132\r.Vector3iD" +
-      "ata\022\020\n\010newBlock\030\002 \001(\005*\t\010\210\'\020\200\200\200\200\002\"/\n\014Vect",
-      "or3iData\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\022\t\n\001z\030\003 \001(" +
-      "\005\"\036\n\021ServerInfoRequest*\t\010\210\'\020\200\200\200\200\002\"i\n\013Joi" +
-      "nMessage\022\014\n\004name\030\001 \001(\t\022\017\n\007version\030\002 \001(\t\022" +
-      "\031\n\021viewDistanceLevel\030\003 \001(\021\022\025\n\005color\030\004 \001(" +
-      "\0132\006.Color*\t\010\210\'\020\200\200\200\200\002\"\025\n\005Color\022\014\n\004rgba\030\001 " +
-      "\001(\r\"2\n\023JoinCompleteMessage\022\020\n\010clientId\030\001" +
-      " \001(\005*\t\010\210\'\020\200\200\200\200\002\"\301\002\n\021ServerInfoMessage\022\033\n" +
-      "\006module\030\001 \003(\0132\013.ModuleInfo\022\023\n\007blockId\030\002 " +
-      "\003(\021B\002\020\001\022\021\n\tblockName\030\003 \003(\t\022%\n\tcomponent\030" +
-      "\004 \003(\0132\022.SerializationInfo\022!\n\005event\030\005 \003(\013",
-      "2\022.SerializationInfo\022\023\n\007assetId\030\006 \003(\005B\002\020" +
-      "\001\022\020\n\010assetUri\030\007 \003(\t\022\033\n\023registerBlockFami" +
-      "ly\030\010 \003(\t\022\035\n\tworldInfo\030\t \003(\0132\n.WorldInfo\022" +
-      "\017\n\007version\030\017 \001(\t\022\020\n\010gameName\030\020 \001(\t\022\014\n\004ti" +
-      "me\030\021 \001(\003*\t\010\210\'\020\200\200\200\200\002\"3\n\tWorldInfo\022\r\n\005titl" +
-      "e\030\001 \001(\t\022\014\n\004time\030\002 \001(\003*\t\010\210\'\020\200\200\200\200\002\"]\n\021Seri" +
-      "alizationInfo\022\014\n\004name\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\022" +
-      "\021\n\tfieldName\030\003 \003(\t\022\020\n\010fieldIds\030\004 \001(\014*\t\010\210" +
-      "\'\020\200\200\200\200\002\"@\n\nModuleInfo\022\020\n\010moduleId\030\001 \001(\t\022" +
-      "\025\n\rmoduleVersion\030\002 \001(\t*\t\010\210\'\020\200\200\200\200\002\",\n\rMod",
-      "uleRequest\022\020\n\010moduleId\030\001 \001(\t*\t\010\210\'\020\200\200\200\200\002\"" +
-      "W\n\020ModuleDataHeader\022\n\n\002id\030\001 \001(\t\022\017\n\007versi" +
-      "on\030\002 \001(\t\022\014\n\004size\030\003 \001(\003\022\r\n\005error\030\017 \001(\t*\t\010" +
-      "\210\'\020\200\200\200\200\002\"\'\n\nModuleData\022\016\n\006module\030\001 \001(\014*\t" +
-      "\010\210\'\020\200\200\200\200\002\"-\n\017ModuleSendError\022\017\n\007message\030" +
-      "\001 \001(\t*\t\010\210\'\020\200\200\200\200\002\"`\n\023CreateEntityMessage\022" +
-      "\035\n\006entity\030\001 \001(\0132\r.PackedEntity\022\037\n\010blockP" +
-      "os\030\002 \001(\0132\r.Vector3iData*\t\010\210\'\020\200\200\200\200\002\"N\n\023Up" +
-      "dateEntityMessage\022\035\n\006entity\030\001 \001(\0132\r.Pack" +
-      "edEntity\022\r\n\005netId\030\002 \001(\005*\t\010\210\'\020\200\200\200\200\002\"/\n\023Re",
-      "moveEntityMessage\022\r\n\005netId\030\001 \001(\005*\t\010\210\'\020\200\200" +
-      "\200\200\002\"i\n\014EventMessage\022\020\n\010targetId\030\001 \001(\005\022\025\n" +
-      "\005event\030\002 \001(\0132\006.Event\022%\n\016targetBlockPos\030\003" +
-      " \001(\0132\r.Vector3iData*\t\010\210\'\020\200\200\200\200\002B$\n\027org.te" +
-      "rasology.protobufB\007NetDataH\001"
+      "teMessage\022\032\n\004kick\030\027 \001(\0132\014.KickMessage\022\'\n" +
+      "\016handshakeHello\030d \001(\0132\017.HandshakeHello\022/" +
+      "\n\022newIdentityRequest\030e \001(\0132\023.NewIdentity",
+      "Request\022-\n\021provisionIdentity\030f \001(\0132\022.Pro" +
+      "visionIdentity\0225\n\025handshakeVerification\030" +
+      "g \001(\0132\026.HandshakeVerification*\t\010\210\'\020\200\200\200\200\002" +
+      "\"a\n\016HandshakeHello\022\016\n\006random\030\001 \001(\014\022!\n\013ce" +
+      "rtificate\030\002 \001(\0132\014.Certificate\022\021\n\ttimesta" +
+      "mp\030\003 \001(\022*\t\010\210\'\020\200\200\200\200\002\"H\n\022NewIdentityReques" +
+      "t\022\027\n\017preMasterSecret\030\001 \001(\014\022\016\n\006random\030\002 \001" +
+      "(\014*\t\010\210\'\020\200\200\200\200\002\"=\n\021ProvisionIdentity\022\035\n\025en" +
+      "cryptedCertificates\030\001 \001(\014*\t\010\210\'\020\200\200\200\200\002\"]\n\016" +
+      "CertificateSet\022\'\n\021publicCertificate\030\001 \001(",
+      "\0132\014.Certificate\022\027\n\017privateExponent\030\002 \001(\014" +
+      "*\t\010\210\'\020\200\200\200\200\002\"5\n\025HandshakeVerification\022\021\n\t" +
+      "signature\030\001 \001(\014*\t\010\210\'\020\200\200\200\200\002\"Z\n\013Certificat" +
+      "e\022\n\n\002id\030\001 \001(\t\022\017\n\007modulus\030\002 \001(\014\022\020\n\010expone" +
+      "nt\030\003 \001(\014\022\021\n\tsignature\030\004 \001(\014*\t\010\210\'\020\200\200\200\200\002\"L" +
+      "\n\034BlockFamilyRegisteredMessage\022\020\n\010blockU" +
+      "ri\030\001 \003(\t\022\017\n\007blockId\030\002 \003(\005*\t\010\210\'\020\200\200\200\200\002\"?\n\026" +
+      "InvalidateChunkMessage\022\032\n\003pos\030\001 \001(\0132\r.Ve" +
+      "ctor3iData*\t\010\210\'\020\200\200\200\200\002\"M\n\022BlockChangeMess" +
+      "age\022\032\n\003pos\030\001 \001(\0132\r.Vector3iData\022\020\n\010newBl",
+      "ock\030\002 \001(\005*\t\010\210\'\020\200\200\200\200\002\"/\n\014Vector3iData\022\t\n\001" +
+      "x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\022\t\n\001z\030\003 \001(\005\"\036\n\021ServerI" +
+      "nfoRequest*\t\010\210\'\020\200\200\200\200\002\"i\n\013JoinMessage\022\014\n\004" +
+      "name\030\001 \001(\t\022\017\n\007version\030\002 \001(\t\022\031\n\021viewDista" +
+      "nceLevel\030\003 \001(\021\022\025\n\005color\030\004 \001(\0132\006.Color*\t\010" +
+      "\210\'\020\200\200\200\200\002\"\025\n\005Color\022\014\n\004rgba\030\001 \001(\r\"2\n\023JoinC" +
+      "ompleteMessage\022\020\n\010clientId\030\001 \001(\005*\t\010\210\'\020\200\200" +
+      "\200\200\002\"(\n\013KickMessage\022\016\n\006reason\030\001 \001(\t*\t\010\210\'\020" +
+      "\200\200\200\200\002\"\301\002\n\021ServerInfoMessage\022\033\n\006module\030\001 " +
+      "\003(\0132\013.ModuleInfo\022\023\n\007blockId\030\002 \003(\021B\002\020\001\022\021\n",
+      "\tblockName\030\003 \003(\t\022%\n\tcomponent\030\004 \003(\0132\022.Se" +
+      "rializationInfo\022!\n\005event\030\005 \003(\0132\022.Seriali" +
+      "zationInfo\022\023\n\007assetId\030\006 \003(\005B\002\020\001\022\020\n\010asset" +
+      "Uri\030\007 \003(\t\022\033\n\023registerBlockFamily\030\010 \003(\t\022\035" +
+      "\n\tworldInfo\030\t \003(\0132\n.WorldInfo\022\017\n\007version" +
+      "\030\017 \001(\t\022\020\n\010gameName\030\020 \001(\t\022\014\n\004time\030\021 \001(\003*\t" +
+      "\010\210\'\020\200\200\200\200\002\"3\n\tWorldInfo\022\r\n\005title\030\001 \001(\t\022\014\n" +
+      "\004time\030\002 \001(\003*\t\010\210\'\020\200\200\200\200\002\"]\n\021SerializationI" +
+      "nfo\022\014\n\004name\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\022\021\n\tfieldNa" +
+      "me\030\003 \003(\t\022\020\n\010fieldIds\030\004 \001(\014*\t\010\210\'\020\200\200\200\200\002\"@\n",
+      "\nModuleInfo\022\020\n\010moduleId\030\001 \001(\t\022\025\n\rmoduleV" +
+      "ersion\030\002 \001(\t*\t\010\210\'\020\200\200\200\200\002\",\n\rModuleRequest" +
+      "\022\020\n\010moduleId\030\001 \001(\t*\t\010\210\'\020\200\200\200\200\002\"W\n\020ModuleD" +
+      "ataHeader\022\n\n\002id\030\001 \001(\t\022\017\n\007version\030\002 \001(\t\022\014" +
+      "\n\004size\030\003 \001(\003\022\r\n\005error\030\017 \001(\t*\t\010\210\'\020\200\200\200\200\002\"\'" +
+      "\n\nModuleData\022\016\n\006module\030\001 \001(\014*\t\010\210\'\020\200\200\200\200\002\"" +
+      "-\n\017ModuleSendError\022\017\n\007message\030\001 \001(\t*\t\010\210\'" +
+      "\020\200\200\200\200\002\"`\n\023CreateEntityMessage\022\035\n\006entity\030" +
+      "\001 \001(\0132\r.PackedEntity\022\037\n\010blockPos\030\002 \001(\0132\r" +
+      ".Vector3iData*\t\010\210\'\020\200\200\200\200\002\"N\n\023UpdateEntity",
+      "Message\022\035\n\006entity\030\001 \001(\0132\r.PackedEntity\022\r" +
+      "\n\005netId\030\002 \001(\005*\t\010\210\'\020\200\200\200\200\002\"/\n\023RemoveEntity" +
+      "Message\022\r\n\005netId\030\001 \001(\005*\t\010\210\'\020\200\200\200\200\002\"i\n\014Eve" +
+      "ntMessage\022\020\n\010targetId\030\001 \001(\005\022\025\n\005event\030\002 \001" +
+      "(\0132\006.Event\022%\n\016targetBlockPos\030\003 \001(\0132\r.Vec" +
+      "tor3iData*\t\010\210\'\020\200\200\200\200\002B$\n\027org.terasology.p" +
+      "rotobufB\007NetDataH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -23871,7 +24568,7 @@ public final class NetData {
           internal_static_NetMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_NetMessage_descriptor,
-              new java.lang.String[] { "ChunkInfo", "InvalidateChunk", "BlockChange", "CreateEntity", "RemoveEntity", "UpdateEntity", "Event", "Time", "ServerInfoRequest", "ServerInfo", "BlockFamilyRegistered", "Join", "ModuleRequest", "ModuleDataHeader", "ModuleData", "JoinComplete", "HandshakeHello", "NewIdentityRequest", "ProvisionIdentity", "HandshakeVerification", });
+              new java.lang.String[] { "ChunkInfo", "InvalidateChunk", "BlockChange", "CreateEntity", "RemoveEntity", "UpdateEntity", "Event", "Time", "ServerInfoRequest", "ServerInfo", "BlockFamilyRegistered", "Join", "ModuleRequest", "ModuleDataHeader", "ModuleData", "JoinComplete", "Kick", "HandshakeHello", "NewIdentityRequest", "ProvisionIdentity", "HandshakeVerification", });
           internal_static_HandshakeHello_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_HandshakeHello_fieldAccessorTable = new
@@ -23956,74 +24653,80 @@ public final class NetData {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_JoinCompleteMessage_descriptor,
               new java.lang.String[] { "ClientId", });
-          internal_static_ServerInfoMessage_descriptor =
+          internal_static_KickMessage_descriptor =
             getDescriptor().getMessageTypes().get(15);
+          internal_static_KickMessage_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_KickMessage_descriptor,
+              new java.lang.String[] { "Reason", });
+          internal_static_ServerInfoMessage_descriptor =
+            getDescriptor().getMessageTypes().get(16);
           internal_static_ServerInfoMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ServerInfoMessage_descriptor,
               new java.lang.String[] { "Module", "BlockId", "BlockName", "Component", "Event", "AssetId", "AssetUri", "RegisterBlockFamily", "WorldInfo", "Version", "GameName", "Time", });
           internal_static_WorldInfo_descriptor =
-            getDescriptor().getMessageTypes().get(16);
+            getDescriptor().getMessageTypes().get(17);
           internal_static_WorldInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_WorldInfo_descriptor,
               new java.lang.String[] { "Title", "Time", });
           internal_static_SerializationInfo_descriptor =
-            getDescriptor().getMessageTypes().get(17);
+            getDescriptor().getMessageTypes().get(18);
           internal_static_SerializationInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_SerializationInfo_descriptor,
               new java.lang.String[] { "Name", "Id", "FieldName", "FieldIds", });
           internal_static_ModuleInfo_descriptor =
-            getDescriptor().getMessageTypes().get(18);
+            getDescriptor().getMessageTypes().get(19);
           internal_static_ModuleInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ModuleInfo_descriptor,
               new java.lang.String[] { "ModuleId", "ModuleVersion", });
           internal_static_ModuleRequest_descriptor =
-            getDescriptor().getMessageTypes().get(19);
+            getDescriptor().getMessageTypes().get(20);
           internal_static_ModuleRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ModuleRequest_descriptor,
               new java.lang.String[] { "ModuleId", });
           internal_static_ModuleDataHeader_descriptor =
-            getDescriptor().getMessageTypes().get(20);
+            getDescriptor().getMessageTypes().get(21);
           internal_static_ModuleDataHeader_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ModuleDataHeader_descriptor,
               new java.lang.String[] { "Id", "Version", "Size", "Error", });
           internal_static_ModuleData_descriptor =
-            getDescriptor().getMessageTypes().get(21);
+            getDescriptor().getMessageTypes().get(22);
           internal_static_ModuleData_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ModuleData_descriptor,
               new java.lang.String[] { "Module", });
           internal_static_ModuleSendError_descriptor =
-            getDescriptor().getMessageTypes().get(22);
+            getDescriptor().getMessageTypes().get(23);
           internal_static_ModuleSendError_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ModuleSendError_descriptor,
               new java.lang.String[] { "Message", });
           internal_static_CreateEntityMessage_descriptor =
-            getDescriptor().getMessageTypes().get(23);
+            getDescriptor().getMessageTypes().get(24);
           internal_static_CreateEntityMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_CreateEntityMessage_descriptor,
               new java.lang.String[] { "Entity", "BlockPos", });
           internal_static_UpdateEntityMessage_descriptor =
-            getDescriptor().getMessageTypes().get(24);
+            getDescriptor().getMessageTypes().get(25);
           internal_static_UpdateEntityMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_UpdateEntityMessage_descriptor,
               new java.lang.String[] { "Entity", "NetId", });
           internal_static_RemoveEntityMessage_descriptor =
-            getDescriptor().getMessageTypes().get(25);
+            getDescriptor().getMessageTypes().get(26);
           internal_static_RemoveEntityMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_RemoveEntityMessage_descriptor,
               new java.lang.String[] { "NetId", });
           internal_static_EventMessage_descriptor =
-            getDescriptor().getMessageTypes().get(26);
+            getDescriptor().getMessageTypes().get(27);
           internal_static_EventMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_EventMessage_descriptor,
