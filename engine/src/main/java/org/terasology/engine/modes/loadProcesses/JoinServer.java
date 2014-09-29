@@ -106,6 +106,7 @@ public class JoinServer implements LoadProcess {
             StateMainMenu mainMenu = new StateMainMenu("Failed to connect to server: " + joinStatus.getErrorMessage());
             CoreRegistry.get(GameEngine.class).changeState(mainMenu);
             networkSystem.shutdown(); // If we were unable to join, shutdown the network sys so we can rejoin
+            return true;
         }
         return false;
     }
