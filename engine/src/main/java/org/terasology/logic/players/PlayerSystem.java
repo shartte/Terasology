@@ -17,6 +17,7 @@
 package org.terasology.logic.players;
 
 import com.google.common.collect.Lists;
+import org.omg.CosNaming.NameComponent;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
@@ -25,6 +26,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.logic.characters.CharacterComponent;
+import org.terasology.logic.common.DisplayNameComponent;
 import org.terasology.logic.location.Location;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
@@ -110,6 +112,12 @@ public class PlayerSystem extends BaseComponentSystem implements UpdateSubscribe
             Location.attachChild(playerCharacter, clientEntity, new Vector3f(), new Quat4f(0, 0, 0, 1));
 
             Client clientListener = networkSystem.getOwner(clientEntity);
+
+            // Copy the name of the client to the player, because it has to be synced to other players as well
+            DisplayNameComponent nameComponent = new DisplayNameComponent();
+            nameComponent.name = clientListener.getName();
+            playerCharacter.saveComponent(nameComponent);
+
             Vector3i distance = clientListener.getViewDistance().getChunkDistance();
             updateRelevanceEntity(clientEntity, distance);
             client.character = playerCharacter;

@@ -24,6 +24,7 @@ import org.terasology.network.Replicate;
 import org.terasology.network.ReplicationCheck;
 import org.terasology.rendering.nui.properties.TextField;
 
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 import java.util.Collection;
@@ -160,6 +161,18 @@ public final class LocationComponent implements Component, ReplicationCheck {
         if (parentLoc != null) {
             this.scale /= parentLoc.getWorldScale();
         }
+    }
+
+    public Matrix4f getTransformMatrix() {
+        Matrix4f matrixWorldSpace = new Matrix4f();
+        Quat4f worldRot = new Quat4f();
+        Vector3f worldPos = new Vector3f();
+        getWorldRotation(worldRot);
+        getWorldPosition(worldPos);
+        float worldScale = getWorldScale();
+
+        matrixWorldSpace.set(worldRot, worldPos, worldScale);
+        return matrixWorldSpace;
     }
 
     public EntityRef getParent() {

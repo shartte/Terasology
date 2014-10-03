@@ -51,6 +51,7 @@ import org.terasology.rendering.nui.UIScreenLayer;
 import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.asset.UIElement;
 import org.terasology.rendering.nui.layers.hud.HUDScreenLayer;
+import org.terasology.rendering.nui.layers.nameplates.NameplateScreenLayer;
 
 import java.util.Deque;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class NUIManagerInternal extends BaseComponentSystem implements NUIManage
 
     private Deque<UIScreenLayer> screens = Queues.newArrayDeque();
     private HUDScreenLayer hudScreenLayer = new HUDScreenLayer();
+    private NameplateScreenLayer nameplateScreenLayer = new NameplateScreenLayer();
     private BiMap<AssetUri, UIScreenLayer> screenLookup = HashBiMap.create();
     private CanvasControl canvas;
     private WidgetLibrary widgetsLibrary;
@@ -319,6 +321,7 @@ public class NUIManagerInternal extends BaseComponentSystem implements NUIManage
     public void render() {
         canvas.preRender();
         Deque<UIScreenLayer> screensToRender = Queues.newArrayDeque();
+        screensToRender.push(nameplateScreenLayer);
         for (UIScreenLayer layer : screens) {
             screensToRender.push(layer);
             if (!layer.isLowerLayerVisible()) {

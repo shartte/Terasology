@@ -1,0 +1,12 @@
+{
+    "inherit": "default",
+    "elements": {
+        "UILabel": {
+            "text-align-horizontal": "CENTER",
+            "text-align-vertical": "top",
+            "text-shadowed": true,
+            "font": "title"
+        }
+    }
+
+}

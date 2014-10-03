@@ -16,11 +16,11 @@
 package org.terasology.rendering.cameras;
 
 import org.terasology.config.Config;
+import org.terasology.math.Vector2i;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.math.MatrixUtils;
 
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
+import javax.vecmath.*;
 
 /**
  * Provides global access to fonts.
@@ -172,6 +172,22 @@ public abstract class Camera {
 
     public Matrix4f getViewProjectionMatrix() {
         return viewProjectionMatrix;
+    }
+
+    public Vector2f fromWorldToScreenSpace(Point3f worldPos) {
+        updateMatrices();
+
+        Vector3f cameraPosition = getPosition();
+        Vector4f p = new Vector4f(worldPos.x, worldPos.y, worldPos.z, 1);
+        p.x -= cameraPosition.x;
+        p.y -= cameraPosition.y;
+        p.z -= cameraPosition.z;
+
+        getViewProjectionMatrix().transform(p);
+        p.x /= p.w;
+        p.y /= p.w;
+        p.z /= p.w;
+        return new Vector2f(p.x / 2 + 0.5f , 1-(p.y / 2 + 0.5f));
     }
 
     public Matrix4f getInverseProjectionMatrix() {
