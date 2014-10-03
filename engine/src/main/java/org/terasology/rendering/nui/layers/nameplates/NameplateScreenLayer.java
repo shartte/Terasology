@@ -143,7 +143,7 @@ public class NameplateScreenLayer extends CoreScreenLayer {
             UILabel label = new UILabel(nameComponent.name);
             label.setSkin(Assets.getSkin("engine:nameplate"));
 
-            Vector2i preferredSize = label.getPreferredContentSize(canvas, new Vector2i(Integer.MAX_VALUE, Integer.MAX_VALUE));
+            Vector2i preferredSize = canvas.calculatePreferredSize(label);
 
             int minX = TeraMath.floorToInt(x * Display.getWidth() - preferredSize.x / 2.0f);
             int minY = TeraMath.floorToInt(y * Display.getHeight() - preferredSize.y);
